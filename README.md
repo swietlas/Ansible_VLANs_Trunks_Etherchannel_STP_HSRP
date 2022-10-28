@@ -1,7 +1,7 @@
 # Using Ansible to configure VLANs, Trunks, Etherchannel, STP and HSRP
 ***
 #### Short summary
-Eve-ng topology is stored in **eveng/** directory. I used eve-ng pro version. Please use Python virutal Environments.This was compiled to support ansible 2.13.5 .
+Eve-ng topology is stored in **eveng/** directory. I used eve-ng pro version and Python virutal Environments, requirements.txt file included. Playbook were tested on ansible 2.13.5 .
 
 ***
 ###TOPOLOGY
@@ -82,8 +82,18 @@ Eve-ng topology is stored in **eveng/** directory. I used eve-ng pro version. Pl
 ```
 
 ***
-#### Please use Python venv
+#### Using Pyhton virtual environement to install required packages
+First create virtual environment with following command:
+
+`python3 -m venv venv `
+
+Then activate virtual environment by:
+
 `source venv/bin/activate`
+
+And install requirements:
+
+`pip install -r requirements.txt`
 
 #### How to push configuration with Ansible playbook(s). 
 There are two ways to use this demonstration.
