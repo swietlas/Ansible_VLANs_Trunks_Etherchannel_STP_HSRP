@@ -1,0 +1,6 @@
+---
+# tasks file for spanningtree
+- name: "Changing STP"
+  cisco.ios.ios_config:
+    backup: no
+    src: spanning_tree_conf.j2

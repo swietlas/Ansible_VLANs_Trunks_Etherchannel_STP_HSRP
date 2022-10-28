@@ -1,0 +1,22 @@
+{% for interface in interfaces %}
+  {% if "Vlan" in interface.name %}
+interface {{ interface.name }}
+{% if interface.hsrpid is defined %}
+  standby version 2
+  standby {{ interface.hsrpid }} ip {{ interface.vip }}
+  standby {{ interface.hsrpid }} timers msec {{ interface.hello }} msec {{ interface.dead }}
+  standby {{ interface.hsrpid }} authentication {{ interface.auth }} key-string {{ interface.string }}
+{% if interface.priority is defined %}
+  standby {{ interface.hsrpid}} priority {{ interface.priority }}
+{% endif %}
+{% if interface.preempt is defined %}
+  standby 10 {{ interface.preempt }}
+{% endif %}
+    {% if interface.trackid is defined %}
+  standby {{ interface.hsrpid}} track {{ interface.trackid }} decrement 30
+{% else %}
+{% endif %}
+{% endif %}
+{% endif %}{# Vlan in iterface name #}
+{% else%}
+{%endfor%}

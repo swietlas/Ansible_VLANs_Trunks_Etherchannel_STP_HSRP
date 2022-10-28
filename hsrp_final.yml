@@ -1,0 +1,50 @@
+---
+- name: Get date
+  hosts: localhost
+  gather_facts: true
+  tasks:
+    - name: Config Timestamp
+      ansible.builtin.set_fact:
+        dtg: "{{ ansible_date_time.iso8601 }}"
+      tags: gettime  
+
+- name: Pre CRQ config backup
+  hosts: all
+  gather_facts: false
+  tags: backup
+  vars:
+    pref: PRE-CRQ
+  roles:
+    - backup_config
+
+- name: Configuring Basic Topology
+  hosts: all
+  gather_facts: false
+  tags: basic
+  roles:
+    - motd_banner
+    - vlans
+    - sw_interfaces
+    - role: etherchanel
+      when: "portchannels is defined"
+    - routed_interfaces
+    - role: spanningtree
+      tags: stp
+    - save_config
+
+- name: Configuring HSRP
+  hosts: all
+  roles:
+    - hsrp
+    - tracking
+
+- name: Post CRQ config backup
+  hosts: all
+  tags: backup
+  gather_facts: false
+  vars:
+    pref: POST-CRQ
+  roles:
+    - backup_config
+
+...

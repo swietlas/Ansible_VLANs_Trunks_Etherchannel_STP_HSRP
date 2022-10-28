@@ -1,0 +1,7 @@
+---
+# tasks file for rtr_interfaces
+
+- name: "Configuring interfaces"
+  cisco.ios.ios_config:
+    backup: yes
+    src: interfaces.j2

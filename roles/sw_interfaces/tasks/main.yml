@@ -1,0 +1,44 @@
+---
+# tasks file for sw_interfaces
+- name: Turn on interfaces
+  ios_interfaces:
+    config:
+      - name: "{{ item.name }}"
+        description: "{{ item.description }}"
+        enabled: true
+    state: merged
+  loop: "{{ interfaces }}"
+  tags: enableintf
+
+- name: Configuring  trunk ports
+  cisco.ios.ios_l2_interfaces:
+    config:
+      - name: "{{ item.name }}"
+        mode: trunk
+        trunk:
+          allowed_vlans: "{{ item.allowed_vlans }}"
+          native_vlan: "{{ item.native }}"
+          # pruning_vlans: 10,20
+          encapsulation: "{{ item.encap }}"
+    state: merged
+  loop: "{{ interfaces }}"
+  when: "item.mode is defined and item.mode == 'trunk'"
+  loop_control:
+    label: "{{ item.name }}"
+  tags: trunks
+
+- name: Configuring  access ports
+  cisco.ios.ios_l2_interfaces:
+    config:
+      - name: "{{ item.name }}"
+        mode: access
+        access:
+          vlan: "{{ item.access_vlan }}"
+        voice:
+          vlan: "{{ item.voice_vlan }}"
+    state: merged
+  loop: "{{ interfaces }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: "item.mode is defined and item.mode == 'access'"
+  tags: access

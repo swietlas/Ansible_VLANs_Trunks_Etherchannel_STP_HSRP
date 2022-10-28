@@ -1,0 +1,61 @@
+interfaces:
+ - name: Ethernet0/0
+   description: Link to C1 configured by Ansible
+   mode: trunk
+   allowed_vlans: 10-21,40
+   native: 10
+   encap: dot1q
+
+ - name: Ethernet0/1
+   description: Link to C2 configured by Ansible
+   mode: trunk
+   allowed_vlans: 10-21,40
+   native: 10
+   encap: dot1q
+
+ - name: Ethernet0/2
+   description: Link to A1 configured by Ansible
+   mode: trunk
+   allowed_vlans: 10-21,40
+   native: 10
+   encap: dot1q 
+
+ - name: Ethernet0/3
+   description: Link to A2 configured by Ansible
+   mode: trunk
+   allowed_vlans: 10-21,40
+   native: 10
+   encap: dot1q
+
+ - name: Ethernet1/0
+   description: Link to A3 configured by Ansible
+   allowed_vlans: 10-21,40
+   mode: trunk
+   native: 10
+   encap: dot1q
+
+ - name: Ethernet1/1
+   description: Unused
+   mode: access
+   access_vlan: 21
+   voice_vlan: 50
+   bpduguard: yes
+   
+ - name: Ethernet1/2
+   description: Unused
+   mode: access
+   access_vlan: 21
+   voice_vlan: 50
+   bpduguard: yes
+
+#### MGMT routed port #####
+#  - name: Ethernet1/3
+#    description: Unused
+#    mode: access
+#    access_vlan: 30
+#    voice_vlan: 50
+#    bpduguard: yes
+
+
+spantree:
+  mode: rpvst

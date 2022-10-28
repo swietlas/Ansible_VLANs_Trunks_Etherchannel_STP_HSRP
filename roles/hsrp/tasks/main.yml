@@ -1,0 +1,22 @@
+---
+# tasks file for hsrp
+
+# - name: configure HSRP parameters
+#   cisco.ios.ios_config:
+#     lines:
+#     - standby version 2
+#     - standby {{ item.hsrpid }} ip {{ item.vip }}
+#     - standby {{ item.hsrpid }} timers msec {{ item.hello }} msec {{ item.dead }}
+#     - standby {{ item.hsrpid }} preempt
+#     - standby {{ item.hsrpid }} priority {{ item.priority }}
+#     - standby {{ item.hsrpid }} authentication {{ item.auth }} key-string {{ item.string }}
+#     parents: interface {{ item.name }}
+#   loop: "{{ interfaces }}"
+#   loop_control:
+#     label: "{{ item.name }}"
+#   when: item.hsrpid is defined  
+
+- name: "Send HSRP config "
+  cisco.ios.ios_config:
+    backup: no
+    src: hsrp_templ.j2

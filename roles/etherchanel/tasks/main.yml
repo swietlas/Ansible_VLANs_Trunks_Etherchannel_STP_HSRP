@@ -1,0 +1,23 @@
+---
+# tasks file for etherchanel
+- name: Merge provided configuration with device configuration
+  cisco.ios.ios_lag_interfaces:
+    config:
+      - name: "{{ item.0.id }}"
+        members:
+        - member: "{{ item.1.member }}"
+          mode: "{{ item.1.mode }}"
+  with_subelements:
+    - "{{ portchannels }}"
+    - members
+
+- name: Set trunk on lag interfaces
+  cisco.ios.ios_config:
+    lines:
+      - switchport trunk encapsulation dot1q
+      - switchport mode trunk
+      - switchport trunk allowed vlan {{ item.allowed_vlans }}
+      - switchport trunk native vlan {{ item.native }}
+
+    parents: interface port-channel {{ item.id }}
+  loop: "{{ portchannels }}"

@@ -1,0 +1,26 @@
+{% if spantree is defined -%}
+spanning-tree mode rapid-pvst
+{% if spantree.root_primary  is defined -%}
+spanning-tree vlan {{ spantree.root_primary }} root primary
+{% endif -%} {#rootprimary#}
+{% if spantree.root_secondary  is defined -%}
+spanning-tree  vlan {{ spantree.root_secondary }} root secondary
+{% endif -%} {#rootescondary#}
+{% endif -%} {#spantree#}
+{% for interface in interfaces -%}
+{% if interface.mode is defined -%}
+interface {{ interface.name }}
+{% if interface.mode == "trunk" %}
+  spanning-tree portfast trunk
+{% endif -%} {# trunkmode#}
+{% if interface.mode == "access" %}
+  spanning-tree portfast edge
+{% endif -%} {#accessmode#}
+{% if interface.rootguard is defined %}
+  spanning-tree guard root
+{% endif -%} {#rootguard#}
+{% if interface.bpduguard is defined %}
+  spanning-tree portfast bpduguard
+{% endif -%} {#bpduguard#}
+{% endif -%}{#modedefined#}
+{% endfor%}

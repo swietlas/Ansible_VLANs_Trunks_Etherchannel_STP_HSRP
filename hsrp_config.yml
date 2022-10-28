@@ -1,0 +1,9 @@
+---
+- name: Configuring HSRP
+  hosts: core
+  gather_facts: false
+
+  roles:
+        - hsrp
+        - tracking
+...

@@ -1,0 +1,90 @@
+interfaces:
+ - name: Ethernet0/0
+   description: Link to D1 configured by Ansible
+   mode: trunk
+   allowed_vlans: 10-21,40
+   native: 10
+   encap: dot1q
+
+ - name: Ethernet0/1
+   description: Unused
+   mode: access
+   access_vlan: 20
+   voice_vlan: 50
+   bpduguard: yes
+
+ - name: Ethernet0/2
+   description: Unused
+   mode: access
+   access_vlan: 20
+   voice_vlan: 50
+   bpduguard: yes
+
+ - name: Ethernet0/3
+   description: Unused
+   mode: access
+   access_vlan: 30
+   voice_vlan: 50
+   bpduguard: yes
+
+ - name: Ethernet1/0
+   description: Unused
+   mode: access
+   access_vlan: 21
+   voice_vlan: 50
+   bpduguard: yes
+   
+ - name: Ethernet1/1
+   description: Unused
+   mode: access
+   access_vlan: 21
+   voice_vlan: 50
+   bpduguard: yes
+   
+ - name: Ethernet1/2
+   description: Unused
+   mode: access
+   access_vlan: 21
+   voice_vlan: 50
+   bpduguard: yes
+
+#### MGMT routed port #####
+#  - name: Ethernet1/3
+#    description: Unused
+#    mode: access
+#    access_vlan: 30
+#    voice_vlan: 50
+#    bpduguard: yes
+
+ - name: Ethernet2/0
+   description: Unused
+   mode: access
+   access_vlan: 10
+   voice_vlan: 50
+   bpduguard: yes
+
+ - name: Ethernet2/1
+   description: Unused
+   mode: access
+   access_vlan: 40
+   voice_vlan: 50
+   bpduguard: yes
+
+ - name: Ethernet2/2
+   description: Unused
+   mode: access
+   access_vlan: 30
+   voice_vlan: 50
+   bpduguard: yes
+
+ - name: Ethernet2/3
+   description: Unused
+   mode: access
+   access_vlan: 70
+   voice_vlan: 50
+   bpduguard: yes
+
+
+
+spantree:
+  mode: rpvst

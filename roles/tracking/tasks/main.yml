@@ -1,0 +1,23 @@
+---
+# tasks file for tracking
+
+- name: Configure tracking object - Global config
+  cisco.ios.ios_config:
+    lines:
+    - track {{ item.trackid }} interface {{ item.trackintf }} line-protocol
+    #parents: interface {{ item.name }}
+  loop: "{{ interfaces }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.hsrpid is defined and item.trackid is defined
+
+- name: Configure tracing action on Interface
+  cisco.ios.ios_config:
+    lines:
+    - standby {{ item.hsrpid }} track {{ item.trackid }} decrement 60
+    parents: interface {{ item.name }}
+  loop: "{{ interfaces }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.hsrpid is defined and item.trackid is defined
+
