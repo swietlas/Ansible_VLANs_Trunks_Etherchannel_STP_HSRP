@@ -5,6 +5,6 @@
     save_when: always
   register: output
 
-- name: DEBUG >> output
-  ansible.builtin.debug:
-    msg: "{{ output }}"
+# - name: DEBUG >> output
+#   ansible.builtin.debug:
+#     msg: "{{ output }}"
